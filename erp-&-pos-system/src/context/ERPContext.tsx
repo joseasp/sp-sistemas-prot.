@@ -85,7 +85,7 @@ const INITIAL_ORDERS: Order[] = [
     number: 101,
     status: 'EM_ATENDIMENTO',
     serviceType: 'BALCAO',
-    serviceDetail: 'Grupo (OS CALOTEIROS)',
+    serviceDetail: 'Grupo (Cliente Avulso)',
     customer: null,
     items: [
       { id: 'i1', productId: '1', name: 'X-Burger', price: 25.00, quantity: 5 },
