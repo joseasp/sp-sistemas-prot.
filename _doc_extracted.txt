@@ -1,0 +1,1112 @@
+
+
+===== PAGE 1 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 1 de 32 
+SP SISTEMAS 
+Documentação de Reforma 
+Especificação Técnica Completa 
+Versão 3.2.3 
+19/02/2026 
+Versão anterior: 3.1  |  Data anterior: 18/02/2026 
+
+===== PAGE 2 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 2 de 32 
+ 
+Sumário 
+Sumário ................................ ................................ ................................ ................................  2 
+Introdução ................................ ................................ ................................ ............................. 5 
+Propósito ................................ ................................ ................................ ........................... 5 
+Como Utilizar Este Documento ................................ ................................ .......................... 5 
+Divisão de Responsabilidades ................................ ................................ ........................... 5 
+Regra Fundamental ................................ ................................ ................................ ........... 5 
+Multiempresa ................................ ................................ ................................ ..................... 6 
+Regimes Tributários Suportados ................................ ................................ ....................... 6 
+MVP — Escopo Operacional................................ ................................ .......................... 6 
+Regime Normal — Estrutura Preparatória ................................ ................................ ...... 6 
+Expansão Futura ................................ ................................ ................................ ............ 6 
+UFs Suportadas ................................ ................................ ................................ ................ 6 
+Módulo: Fiscal ................................ ................................ ................................ ....................... 8 
+Submódulo: Relatórios e Exportação ................................ ................................ ................ 8 
+Objetivo ................................ ................................ ................................ ......................... 8 
+Localização das Funcionalidades na Interface ................................ ...............................  8 
+Tipos de Saídas Geradas ................................ ................................ ..............................  8 
+Regra Geral de Geração Condicional ................................ ................................ ............ 8 
+Estrutura do Pacote de Exportação (ZIP) ................................ ................................ ....... 9 
+Filtros de Seleção para Exportação em Lote ................................ ................................ .. 9 
+Escopos de Venda ................................ ................................ ................................ ......... 9 
+Classes de Operação ................................ ................................ ................................ .. 10 
+Cálculo da Nota de Confiabilidade ................................ ................................ ............... 10 
+Níveis de Confiabilidade ................................ ................................ ..............................  10 
+Conteúdo do PDF Master ................................ ................................ ............................ 11 
+Avisos Automáticos por Confiabilidade no PDF Master ................................ ................ 11 
+Finalidade e Força do PDF Master................................ ................................ ............... 12 
+Observações e Alertas do Mapa PGDAS ................................ ................................ ..... 12 
+Mapa de Preenchimento do PGDAS ................................ ................................ ............ 12 
+Conteúdo do PDF Detalhado de Saídas ................................ ................................ ...... 13 
+Conteúdo do PDF Detalhado de Entradas ................................ ................................ ... 14 
+Conteúdo do PDF Detalhado de Cancelamentos ................................ ......................... 14 
+Cancelamento de Documentos Fiscais — Regras e Prazos ................................ ........ 14 
+Devolução de Mercadorias e Retorno de Estoque ................................ ....................... 15 
+Inutilização de Numeração ................................ ................................ ........................... 15 
+Carta de Correção Eletrônica (CC-e) ................................ ................................ ........... 15 
+
+===== PAGE 3 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 3 de 32 
+DIFAL — Diferencial de Alíquota ................................ ................................ ................. 16 
+Módulo de Entradas — Escopo do MVP ................................ ................................ ...... 16 
+Impressão de Documentos Fiscais (DANFE / DANFCE) ................................ .............. 16 
+Comportamento Durante a Geração do Pacote Contábil ................................ ............. 17 
+Módulo: Arquitetura Fiscal e Obrigações................................ ................................ ............. 18 
+2.1 Entidade: Perfil Fiscal (Tax Profile) ................................ ................................ ............ 18 
+2.2 Cálculo de Substituição Tributária (ICMS-ST) ................................ ........................... 18 
+2.3 Matriz de CFOP e Natureza da Operação ................................ ................................ . 19 
+2.4 Gestão de Alíquotas Parametrizáveis ................................ ................................ ........ 19 
+2.5 Inteligência de Importação (XML de Entrada) ................................ ............................ 19 
+2.6 Qualidade de Dados para SPED (Bloco 0) ................................ ................................  19 
+2.7 Manifestação do Destinatário — Especificação Futura ................................ .............. 19 
+Módulo: Rotinas Fiscais e Exportação (SPED) ................................ ................................ ... 21 
+3.1 Gerador de SPED Fiscal (EFD ICMS/IPI) ................................ ................................ .. 21 
+3.2 Pré-Validação (Checklist de Integridade) ................................ ................................ ... 21 
+Módulo: Cadastro de Produtos ................................ ................................ ............................ 23 
+Agrupamento Fiscal ................................ ................................ ................................ ......... 23 
+Campo NCM ................................ ................................ ................................ ................ 23 
+Campo CEST ................................ ................................ ................................ ............... 23 
+Agrupamento Tributação ................................ ................................ ................................ . 23 
+Campo Origem da Mercadoria ................................ ................................ ..................... 23 
+Campo CST/CSOSN ................................ ................................ ................................ ... 23 
+Indicador de Elegibilidade Fiscal ................................ ................................ ..................... 24 
+Módulo: Cadastro de Clientes ................................ ................................ ............................. 25 
+Validação de CPF e CNPJ ................................ ................................ ..............................  25 
+Campo Indicador de Inscrição Estadual ................................ ................................ .......... 25 
+Busca por CEP e Código IBGE ................................ ................................ ....................... 25 
+Indicador de Elegibilidade para NF-e ................................ ................................ ............... 25 
+Validações de Backend ................................ ................................ ................................ ... 25 
+Módulo: Frente de Caixa / PDV ................................ ................................ ........................... 27 
+Produto Não Elegível ................................ ................................ ................................ ....... 27 
+Identificação do Cliente ................................ ................................ ................................ ... 27 
+Para NFC-e ................................ ................................ ................................ .................. 27 
+Para NF-e ................................ ................................ ................................ .................... 27 
+Painel de Totais e Tributos ................................ ................................ ..............................  27 
+Validação Pré-Emissão (Pre-flight Check) ................................ ................................ ....... 27 
+Botão Emitir Fiscal................................ ................................ ................................ ........... 27 
+Fluxo de Contingência ................................ ................................ ................................ ..... 28 
+Módulo: Configurações Fiscais ................................ ................................ ........................... 29 
+
+===== PAGE 4 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 4 de 32 
+Gestão do Certificado Digital ................................ ................................ ........................... 29 
+Configuração de Ambiente e Emissão ................................ ................................ ............. 29 
+Dados da NFC-e (Venda Balcão) ................................ ................................ .................... 29 
+Numeração e Série................................ ................................ ................................ .......... 29 
+Armazenamento e Segurança do Certificado ................................ ................................ .. 30 
+Alerta de Expiração do Certificado ................................ ................................ .................. 30 
+Módulo: Relatórios Gerenciais ................................ ................................ ............................ 31 
+Mapa de Apuração de Impostos ................................ ................................ ...................... 31 
+Visão Simples Nacional ................................ ................................ ...............................  31 
+Visão Regime Normal (Estrutura Futura) ................................ ................................ ..... 31 
+Relatório de Vendas e Curva ABC ................................ ................................ .................. 31 
+Kardex de Estoque ................................ ................................ ................................ .......... 31 
+Conferência de Meios de Pagamento (Conciliação) ................................ ........................ 32 
+ 
+
+===== PAGE 5 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 5 de 32 
+ 
+Introdução 
+Este documento especifica a reforma do sistema SP Sistemas. O documento define o que o 
+sistema deve construir, como o sistema deve se comportar e quais regras o sistema deve 
+seguir. Este documento não define a ordem de execução das implementações nem os 
+métodos técnicos de implementação. 
+Propósito 
+Esta documentação serve como especificação completa para a reconstrução e reforma do 
+sistema SP Sistemas. O agente executor deve ler esta documentação em conjunto com o 
+protótipo visual localizado na pasta /Ideias/prototipo-ui. O protótipo visual representa a 
+interface final esperada. Esta documentação complementa o protótipo com as regras de 
+negócio, comportamentos, estruturas de dados e lógicas que não são visíveis apenas 
+observando a interface. 
+Como Utilizar Este Documento 
+O protótipo visual é a referência para toda a aparência e estrutura de interface. Quando esta 
+documentação mencionar elementos visuais (botões, telas, campos, seções), estes 
+elementos estão representados no protótipo. A documentação descreve: 
+• O que cada elemento faz 
+• Quais dados cada elemento manipula 
+• Quais validações cada elemento aplica 
+• Como cada elemento se relaciona com outros elementos do sistema 
+ 
+O sistema SP Sistemas já existe e possui estrutura técnica estabelecida. O agente executor 
+deve analisar o código existente para compreender a stack tecnológica, padrões de código, 
+arquitetura atual e convenções já adotadas. 
+Divisão de Responsabilidades 
+Esta documentação define: 
+• O resultado final esperado para cada funcionalidade 
+• As regras de negócio que devem ser respeitadas 
+• Os comportamentos específicos de cada elemento 
+• As validações e restrições de dados 
+• As relações entre módulos e funcionalidades 
+ 
+O agente executor decide: 
+• A ordem de implementação das alterações 
+• Os métodos técnicos para atingir os resultados especificados 
+• A rota de reforma considerando dependências do código existente 
+• A resolução de problemas técnicos encontrados durante a execução 
+Regra Fundamental 
+
+===== PAGE 6 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 6 de 32 
+O agente executor possui autonomia técnica para decidir como implementar e em que 
+ordem executar. 
+O agente executor não possui autonomia para alterar comportamentos, regras de 
+negócio ou resultados especificados neste documento. 
+Quando houver conflito entre uma decisão técnica e uma especificação deste 
+documento, a especificação deste documento prevalece. 
+ 
+Multiempresa 
+O sistema deve ser implementado para suportar múltiplas empresas (múltiplos CNPJs) na 
+mesma instalação. O executor deve identificar a lógica multiempresa já existente no sistema 
+e aplicá-la a todos os módulos novos e reformados descritos nesta documentação, 
+mantendo consistência com os padrões já adotados. Toda configuração fiscal, certificado 
+digital, numeração de documentos, Perfil Fiscal e relatórios são isolados por empresa. 
+Regimes Tributários Suportados 
+MVP — Escopo Operacional 
+O sistema suporta operacionalmente apenas o Simples Nacional no MVP. Todas as 
+funcionalidades fiscais descritas nesta documentação são implementadas e validadas para 
+empresas optantes pelo Simples Nacional. 
+Regime Normal — Estrutura Preparatória 
+Os campos, entidades e interfaces relacionados ao Regime Normal (Lucro Presumido / 
+Lucro Real) devem ser implementados na estrutura de dados e na interface, porém 
+bloqueados para uso. Na tela de Configurações da Empresa, o campo de seleção de 
+regime tributário deve exibir as opções 'Simples Nacional' e 'Regime Normal'. A opção 
+'Regime Normal' deve estar visível, porém não selecionável, com indicação visual de que 
+está disponível em breve. 
+O executor não deve implementar validações fiscais, cálculos de apuração nem geração de 
+documentos para o Regime Normal no MVP. A estrutura deve existir para facilitar a 
+expansão futura sem refatoração de banco de dados. 
+Expansão Futura 
+A ativação do Regime Normal como modo operacional, incluindo o PDF Master 
+adaptado, o cálculo de débito/crédito de ICMS e a apuração de PIS/COFINS no regime 
+não cumulativo, está prevista para versão futura e será especificada em documentação 
+complementar. 
+ 
+UFs Suportadas 
+ 
+UF Status Observação 
+MG Suportada Regras específicas implementadas 
+ES Suportada Regras específicas implementadas 
+
+===== PAGE 7 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 7 de 32 
+UF Status Observação 
+Outras Não suportada Sistema não opera nessas UFs 
+ 
+
+===== PAGE 8 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 8 de 32 
+ 
+Módulo: Fiscal 
+Submódulo: Relatórios e Exportação 
+Objetivo 
+Implementar as funcionalidades das telas Fiscal > Relatórios e Fiscal > Exportação com 
+geração real de arquivos. A implementação deve seguir exatamente o que a interface define 
+no protótipo visual. 
+Localização das Funcionalidades na Interface 
+Aba Fiscal > Relatórios 
+A aba Fiscal > Relatórios exibe tabelas e cards com informações de Segregação Estimada, 
+formas de pagamento, operações internas sem valor fiscal (quando aplicável) e documentos 
+fiscais emitidos. 
+Botão “Exportar PDF”: Gera e baixa o PDF Master. O PDF Master é gerado por padrão ao 
+clicar neste botão, sem necessidade de configurar opções adicionais. 
+Aba Fiscal > Exportação 
+A aba Fiscal > Exportação contém a funcionalidade “Pacote Contábil” com duas opções: 
+● Pacote Completo: Gera o pacote com todas as informações disponíveis. Utiliza o 
+Modo Interno (Geral) por padrão. 
+● Relatório Customizado: Permite ao usuário configurar escopo de vendas, formas de 
+pagamento, checkbox “Incluir XML de Entrada” e checkbox “Incluir XML de Saída”. 
+Botão “Gerar Pacote (.zip)”: Gera o arquivo ZIP final do pacote contábil contendo: PDF 
+Master (sempre incluído), PDFs Detalhados existentes (somente os que possuírem dados) 
+e ZIPs de XML existentes (somente os que possuírem dados). Os cancelamentos são 
+gerados automaticamente quando existirem no período, sem necessidade de checkbox 
+específico. 
+  
+Tipos de Saídas Geradas 
+ 
+Tipo Descrição 
+PDF Master Documento principal com totais, segregação estimada, Mapa PGDAS, 
+nível de confiabilidade e resumo de entradas/saídas. Respeit a todos os 
+filtros aplicados. 
+PDFs Detalhados Documentos separados para análise: PDF de Entradas, PDF de Saídas e 
+PDF de Cancelamentos. Cada um é um arquivo independente. 
+ZIPs de XML Arquivos compactados com os XMLs dos documentos fiscais: ZIP de 
+Entradas, ZIP de Saídas, ZIP de Cancelamentos. 
+ 
+Regra Geral de Geração Condicional 
+O sistema só gera um arquivo (PDF Detalhado ou ZIP de XML) se existir pelo menos um 
+registro correspondente no período filtrado. 
+
+===== PAGE 9 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 9 de 32 
+• Se não houver nenhuma compra no período: o sistema não gera o ZIP de Entradas 
+nem o PDF de Entradas. 
+• Se não houver cancelamentos no período: o sistema não gera o ZIP de 
+Cancelamentos nem o PDF de Cancelamentos. 
+ 
+Exceção: O PDF Master sempre é gerado. Mesmo quando não existem registros em 
+uma categoria, o PDF Master deve mencionar no resumo a contagem zerada. 
+Exemplos: 'Cancelamentos: 0', 'Entradas: 0'. 
+ 
+Estrutura do Pacote de Exportação (ZIP) 
+A estrutura de pastas e arquivos adotada para todos os pacotes de exportação é a 
+seguinte. Esta estrutura substitui qualquer definição anterior de estrutura de ZIP neste 
+documento. 
+ 
+/ROOT 
+  /NFe 
+      /Autorizadas       <- XMLs assinados com protocolo ({Chave}-procNFe.xml) 
+      /Canceladas        <- XML de evento de cancelamento 
+      /Inutilizadas      <- XML de homologacao de inutilizacao 
+  /NFCe 
+      /Autorizadas 
+      /Canceladas 
+  /Eventos 
+      /CartasDeCorrecao 
+      /Manifestacoes 
+  /PDF 
+      pdf_master_YYYY-MM.pdf 
+      pdf_saidas_YYYY-MM.pdf         (somente se existirem dados) 
+      pdf_entradas_YYYY-MM.pdf       (somente se existirem dados) 
+      pdf_cancelamentos_YYYY-MM.pdf  (somente se existirem dados) 
+ 
+Regra de Ouro: O arquivo exportado DEVE conter a tag <protNFe> (Protocolo de 
+Autorização). XMLs sem protocolo não devem ser incluídos na exportação. 
+ 
+Nome do arquivo ZIP final: pacote_contabil_YYYY-MM_[nome-fantasia].zip 
+Filtros de Seleção para Exportação em Lote 
+• Período: Data Inicial e Final (Timestamp de emissão) 
+• Modelo: NF-e (55), NFC-e (65), CT-e (57) 
+• Situação: Autorizada, Cancelada, Inutilizada 
+Escopos de Venda 
+ 
+
+===== PAGE 10 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 10 de 32 
+Modo Descrição Conteúdo 
+Modo Fiscal (NF-
+e/NFC-e) 
+Somente operações 
+com documento fiscal 
+Considera apenas vendas com NF-e ou 
+NFC-e autorizada. Dados extraídos do XML. 
+Nível de confiabilidade: sempre 100%. 
+Modo Interno (Geral) Todas as operações Considera vendas fiscais + vendas internas 
+(sem documento fiscal). Vendas internas 
+usam dados do cadastro. Exibe nível de 
+confiabilidade calculado. 
+ 
+Classes de Operação 
+ 
+Classe Nome Descrição 
+F Fiscal Operação com documento fiscal emitido e autorizado. Dados 
+do XML. 
+E Estimada Alta Operação interna com ≥ 90% do valor com base fiscal 
+completa no cadastro. 
+P Parcial Operação interna com 30% a 89,99% do valor com base fiscal 
+completa. 
+Z Sem Base Operação interna com < 30% do valor com base fiscal 
+completa. 
+ 
+Definição de ‘base fiscal completa’: Um item possui base fiscal completa quando todos os 
+campos obrigatórios para elegibilidade fiscal estão preenchidos (NCM, Origem, 
+CST/CSOSN, Unidade e CEST quando aplicável). 
+Cálculo da Nota de Confiabilidade 
+ 
+Classe Peso 
+F (Fiscal) 1,00 
+E (Estimada Alta) 0,85 
+P (Parcial) 0,50 
+Z (Sem Base) 0,00 
+ 
+Fórmula: Confiabilidade (%) = ((Valor_F × 1,00) + (Valor_E × 0,85) + (Valor_P × 0,50) + 
+(Valor_Z × 0,00)) / Valor_Total × 100 
+Níveis de Confiabilidade 
+ 
+Nível Nome Faixa Cor 
+1 Alta (Fiscal) ≥ 95% Verde (#28A745) 
+2 Boa (Fiscal + Estimada) 85% a 94,99% Azul (#007BFF) 
+3 Regular (Misto) 60% a 84,99% Amarelo (#FFC107) 
+
+===== PAGE 11 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 11 de 32 
+Nível Nome Faixa Cor 
+4 Baixa (Incompleto) < 60% Vermelho (#DC3545) 
+ 
+Conteúdo do PDF Master 
+O PDF Master deve conter as seguintes informações, na ordem especificada: 
+• Identificação da Empresa: Nome, CNPJ, Inscrição Estadual (se houver) 
+• Informações do Relatório: Período, Tipo (Completo ou Customizado), Modo aplicado 
+• Indicador de Confiabilidade: barra de progresso horizontal preenchida 
+proporcionalmente ao percentual, cor conforme nível, texto sobreposto com 
+percentual e nome do nível, largura total do conteúdo, altura aproximada de 20–30 
+pixels 
+• Avisos automáticos (conforme regras detalhadas abaixo) 
+• Totais: receita total considerada, quantidade de vendas, totais por tipo de documento 
+(NFC-e e NF-e com contagens), total de entradas e contagem (quando inclusão 
+marcada), total de cancelamentos e contagem 
+• Segregação Estimada (Simples Nacional) 
+• Mapa de Preenchimento do PGDAS 
+• Operações Internas sem Valor Fiscal: quantidade e valor total (quando aplicável) 
+• Formas de Pagamento 
+• Seção Final: Arquivos Gerados no Pacote (listar apenas os efetivamente incluídos) 
+Avisos Automáticos por Confiabilidade no PDF Master 
+ 
+Aviso 1 — Modo Interno (Geral) com operações internas existentes 
+Condição: Modo Interno (Geral) selecionado E existem operações das classes E, P ou Z no 
+período. Se o modo for Interno (Geral) mas todas as vendas forem Classe F (100% fiscal), 
+este aviso NÃO deve ser exibido. 
+ 
+Texto do Aviso 1: “Este documento inclui operações internas sem valor fiscal. Para 
+essas operações, a classificação pode ser estimada com base no cadastro dos itens e 
+pode não refletir todas as regras aplicáveis ao contexto fiscal. Recomenda-se validar a 
+apuração fiscal prioritariamente com operações de valor fiscal.” 
+ 
+Aviso 2 — Confiabilidade inferior ao Nível 1 
+Condição: Nível de confiabilidade inferior a 95% (Níveis 2, 3 ou 4). 
+ 
+Texto do Aviso 2: “A confiabilidade deste documento é [Nível X — Nome]. Para maior 
+precisão na apuração fiscal, recomenda-se priorizar operações com valor fiscal ou 
+completar os dados cadastrais dos itens das operações internas.” 
+ 
+Posicionamento: Os avisos devem ser exibidos logo após a barra de confiabilidade, antes 
+da seção de Totais, com destaque visual (cor de fundo amarela clara ou borda de alerta). 
+
+===== PAGE 12 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 12 de 32 
+Finalidade e Força do PDF Master 
+ 
+Modo Finalidade Uso para Apuração Fiscal 
+Modo Fiscal (NF-
+e/NFC-e) 
+Fiscal e contábil. Dados 
+baseados em documentos fiscais 
+autorizados (XMLs). 
+Pode ser utilizado diretamente para 
+apuração fiscal. 
+Modo Interno (Geral) Gerencial. Pode conter 
+estimativas para operações 
+internas. 
+Recomenda-se validar o nível de 
+confiabilidade antes do uso. 
+Priorizar o Modo Fiscal ou 
+completar os dados cadastrais. 
+ 
+Observações e Alertas do Mapa PGDAS 
+Textos automáticos por modo: 
+ 
+Modo Fiscal (NF-e/NFC-e): “Mapa gerado com base exclusiva em operações com valor 
+fiscal. Dados extraídos dos XMLs autorizados.” 
+ 
+Modo Interno (Geral): “Mapa inclui operações internas sem valor fiscal. Parte das 
+classificações pode ser estimada conforme cadastro dos itens. Verifique a confiabilidade 
+do documento antes de utilizar para apuração.” 
+ 
+Texto para Receitas Estimadas: 
+Condição: Existem operações das classes E, P ou Z no período. 
+“Receitas estimadas foram agrupadas conforme base fiscal disponível. Vendas internas 
+com dados incompletos foram classificadas como Receita Normal. Recomenda-se 
+conferência em caso de divergência.” 
+ 
+Mapa de Preenchimento do PGDAS 
+O Mapa PGDAS segrega as receitas do período em ‘caixas’ tributárias correspondentes aos 
+campos do PGDAS-D, fornecendo ao contador um guia exato de preenchimento. 
+Hierarquia de Prioridade dos Dados: 
+• Vendas Fiscais (Classe F): O XML é soberano. O sistema deve ignorar o cadastro 
+atual do produto e extrair os dados diretamente do XML autorizado. 
+• Vendas Internas: O sistema realiza Segregação Estimada buscando NCM, 
+CST/CSOSN e CEST no cadastro do produto. 
+ 
+Regra de Classificação — Mapeamento de Campos: 
+ 
+CSOSN (ICMS) CST PIS/COFINS Linha no PGDAS 
+101 ou 102 01, 49 ou outros Receita Normal 
+
+===== PAGE 13 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 13 de 32 
+CSOSN (ICMS) CST PIS/COFINS Linha no PGDAS 
+500 01, 49 ou outros Receita com ST (ICMS) 
+101 ou 102 04 ou 06 Receita Monofásica (PIS/COFINS) 
+500 04 ou 06 Monofásica + ST 
+300 ou 400 Qualquer um Isenção / Imunidade 
+ 
+Estrutura da Tabela no PDF: 
+Título do bloco: “Mapa PGDAS — [Nome da Atividade]”. Colunas: Combinação, Receita 
+(R$), PIS, COFINS, ICMS, CSLL, IRPJ, INSS/CPP. 
+ 
+Fallback para Receita Normal: Se não houver informações suficientes para identificar um 
+benefício (ST ou Monofásico), o sistema classifica obrigatoriamente a venda como ‘Receita 
+Normal’. Esta regra evita que o cliente deixe de pagar imposto por erro de cadastro. 
+Validação de Soma: A soma de todas as linhas segregadas por bloco de atividade deve ser 
+rigorosamente igual ao faturamento bruto total daquela atividade no período. Qualquer 
+divergência deve ser sinalizada como ‘Erro de Processamento’ e o sistema deve impedir a 
+geração do relatório. 
+Fonte do Dado “Monofásico” para Vendas Internas 
+Para vendas internas não há XML para informar o CST 04/06. O sistema deve identificar o 
+tratamento monofásico por uma das seguintes fontes, em ordem de preferência: 
+● Tabela Interna de NCMs Monofásicos: O sistema verifica se o NCM do produto 
+consta em uma tabela interna de NCMs com tributação monofásica. Esta tabela 
+deve ser atualizável pelo administrador do sistema. 
+● Campo “Tipo de Tributação PIS/COFINS” no Cadastro do Produto: Se o NCM não 
+estiver na tabela interna, o sistema consulta este campo no cadastro do produto 
+para determinar o tratamento monofásico. 
+Se nenhuma das fontes fornecer a informação, a receita será classificada como ‘Receita 
+Normal’ (fallback seguro). 
+Situações Especiais (Parametrização) 
+O sistema gera automaticamente as combinações tributárias mais comuns do varejo: 
+Receita Normal, ST, Monofásico e Monofásico+ST. Situações especiais (imunidade, 
+exigibilidade suspensa, isenção/redução e similares) dependem de parametrização explícita 
+e conferência, não sendo aplicadas automaticamente como padrão. 
+Aviso ao Usuário sobre Dados Cadastrais Ausentes 
+O relatório deve destacar visualmente que a ausência de dados cadastrais resulta em maior 
+carga tributária (pois a venda é classificada como Receita Normal). O sistema deve 
+incentivar o preenchimento correto do cadastro exibindo um aviso no Mapa PGDAS quando 
+existirem vendas internas com dados insuficientes para classificação precisa. 
+Tratamento de IRPJ / CSLL / CPP no Mapa PGDAS 
+Para empresas do Anexo I (Comércio), IRPJ, CSLL e CPP não sofrem segregação por 
+produto. Na tabela do Mapa PGDAS, as colunas CSLL, IRPJ e INSS/CPP devem ser 
+exibidas com traço (“-”) para todas as linhas, indicando que a tributação segue a alíquota 
+padrão sobre a receita bruta total, sem deduções item a item. 
+  
+Conteúdo do PDF Detalhado de Saídas 
+
+===== PAGE 14 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 14 de 32 
+Cabeçalho: Empresa (Razão Social + CNPJ), Período do filtro, Data/hora de geração. 
+Resumo: Quantidade de documentos, Total bruto, Total líquido. 
+Tabela detalhada por documento — cada linha deve conter: 
+• Data/hora de emissão 
+• Tipo: NFC-e / NF-e 
+• Número / Série 
+• Situação: Autorizada / Cancelada / Contingência / Rejeitada 
+• Cliente (Nome + CPF/CNPJ quando houver) 
+• Valor total 
+• Valor aproximado de tributos (IBPT) 
+• Forma(s) de pagamento (dinheiro / cartão / pix etc.) 
+• Chave de acesso (quando existir) 
+• Protocolo de autorização (quando existir) 
+ 
+Rodapé: Totais consolidados e observações (quando aplicável). 
+Conteúdo do PDF Detalhado de Entradas 
+Cabeçalho: Empresa (Razão Social + CNPJ), Período do filtro, Data/hora de geração. 
+Tabela de Notas Fiscais de Entrada — cada linha deve conter: 
+• Data de entrada 
+• Emitente (Razão Social + CNPJ) 
+• Número da NF / Série 
+• Chave de acesso 
+• Valor total da NF 
+• Situação: importada / validada / pendente 
+Conteúdo do PDF Detalhado de Cancelamentos 
+Cabeçalho: Empresa (Razão Social + CNPJ), Período do filtro, Data/hora de geração. 
+Tabela de Cancelamentos — cada linha deve conter: 
+• Data/hora do cancelamento 
+• Tipo de documento (NFC-e ou NF-e) 
+• Número / Série 
+• Chave de acesso 
+• Cliente (se houver identificação) 
+• Valor do documento cancelado 
+• Motivo do cancelamento 
+• Protocolo do evento de cancelamento (quando existir) 
+ 
+Resumo: Quantidade de documentos cancelados e total cancelado (soma dos valores). 
+Cancelamento de Documentos Fiscais — Regras e Prazos 
+O sistema implementa bloqueio preventivo na interface para cancelamentos fora do prazo 
+legal. 
+ 
+
+===== PAGE 15 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 15 de 32 
+Modelo Prazo Máximo Comportamento após prazo 
+NFC-e (Modelo 65) 30 minutos após autorização Botão 'Cancelar Nota' desabilitado 
+automaticamente 
+NF-e (Modelo 55) 24 horas após autorização Botão 'Cancelar Nota' desabilitado 
+automaticamente 
+ 
+Quando o usuário tentar cancelar um documento após o prazo, o sistema exibe: “Esta nota 
+não pode mais ser cancelada. O prazo legal para cancelamento foi encerrado. Para 
+devolver a mercadoria, consulte seu contador para emissão de NF-e de devolução.” 
+Devolução de Mercadorias e Retorno de Estoque 
+O cancelamento de documento fiscal dentro do prazo legal é o mecanismo suportado pelo 
+sistema para devolução de mercadorias no MVP. 
+1. Transmitir o evento de cancelamento para a SEFAZ e aguardar o protocolo de 
+confirmação. 
+2. Retornar automaticamente ao estoque as quantidades de todos os itens do 
+documento cancelado. 
+3. Registrar a movimentação de estoque com tipo ‘Retorno por Cancelamento’, 
+vinculado ao número do documento. 
+ 
+O mesmo comportamento aplica-se ao cancelamento ou exclusão de vendas internas sem 
+valor fiscal. 
+O sistema não processa devoluções via NF-e de entrada própria no MVP. Este fluxo 
+está previsto para implementação futura. 
+ 
+Inutilização de Numeração 
+• Detecção: Cron Job diário às 03:00 verifica quebras de sequência. 
+• Interface: Notificação no Dashboard administrativo: ‘Gaps de Numeração 
+Detectados’. 
+• Fluxo de Aprovação: O sistema apresenta Justificativa Padrão Sugerida (‘Falha 
+técnica na sequência de numeração do emissor’). O administrador revisa e clica em 
+‘Confirmar Inutilização’ para assinar e transmitir. 
+ 
+Registro após inutilização confirmada: 
+• O número (ou faixa) inutilizado é registrado na tabela de documentos com status 
+‘Inutilizado’. 
+• O campo ‘Próximo Número’ nas Configurações Fiscais não é alterado pelo processo 
+de inutilização. 
+• O sistema não permite que o ‘Próximo Número’ retroceda para valor igual ou inferior 
+ao maior número já utilizado ou inutilizado. 
+• O motor SPED gera automaticamente o Registro C100 com Situação 05 para todos 
+os números com status ‘Inutilizado’ no período selecionado. 
+Carta de Correção Eletrônica (CC-e) 
+
+===== PAGE 16 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 16 de 32 
+O sistema implementa formulário estruturado para emissão de CC-e em NF-e. O sistema 
+apresenta lista de campos permitidos para correção (ex: Peso Bruto, Volume, Endereço de 
+Entrega, Dados do Transportador, Descrição Adicional). 
+Campos bloqueados para correção (conforme Art. 7º do Ajuste SINIEF 07/05): 
+• Variáveis que determinam o valor do imposto (Base de Cálculo, Alíquota, Diferença 
+de Preço, Quantidade, Valor da Operação) 
+• Dados cadastrais que impliquem mudança do remetente ou do destinatário 
+• Data de emissão ou de saída 
+ 
+Com base na seleção do usuário, o sistema gera automaticamente a frase técnica de 
+correção. Limite: O sistema permite e armazena até 20 CC-e por NF-e. O sistema deve 
+alertar que a última carta enviada substitui integralmente as anteriores. 
+DIFAL — Diferencial de Alíquota 
+O sistema não calcula nem recolhe o DIFAL automaticamente no MVP. Quando identificar 
+UF de destino diferente da UF de origem em operação de NF-e para consumidor final, o 
+sistema exibe antes da emissão: 
+“Atenção: esta operação é interestadual para consumidor final e pode gerar obrigação 
+de DIFAL (Diferencial de Alíquota). Consulte seu contador antes de emitir.” 
+ 
+O aviso não bloqueia a emissão. O usuário pode prosseguir após visualizar o aviso. 
+Módulo de Entradas — Escopo do MVP 
+• Upload manual de arquivo XML pelo usuário. 
+• Digitação da chave de acesso para consulta e download do XML na SEFAZ. 
+ 
+Expansão Futura — Manifestação do Destinatário: A Distribuição de DF-e (serviço da 
+SEFAZ para distribuição automática de documentos fiscais emitidos contra o CNPJ da 
+empresa) deve ser implementada em versão futura. Os eventos de manifestação 
+(Ciência, Confirmação, Desconhecimento e Operação Não Realizada) e os estados do 
+documento (Identificado, Disponível para Lançamento, Lançado) estão descritos na 
+seção de Arquitetura Fiscal e devem ser considerados na arquitetura do módulo atual 
+para facilitar a expansão sem refatoração significativa. 
+ 
+Impressão de Documentos Fiscais (DANFE / DANFCE) 
+ 
+Modelo Formato Impressora 
+NF-e (Modelo 55) DANFE A4 (retrato ou paisagem, 
+conforme configuração) 
+Impressora comum ou PDF 
+NFC-e (Modelo 65) DANFCE bobina 80mm Impressora térmica de 
+cupom 
+ 
+• Impressão imediata após autorização: Ao receber o protocolo da SEFAZ, o sistema 
+exibe automaticamente a opção de imprimir. 
+
+===== PAGE 17 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 17 de 32 
+• Reimpressão: O sistema permite reimpressor de qualquer documento com status 
+‘Autorizada’ a partir do painel de notas, com dados completos de autorização. 
+• Impressão em contingência: O sistema permite impressão do DANFE/DANFCE em 
+modo contingência, com identificação visual clara do status. 
+ 
+A configuração de impressora (modelo, porta, driver e parâmetros) deve ser implementada 
+seguindo os padrões já adotados no sistema existente. 
+Comportamento Durante a Geração do Pacote Contábil 
+O sistema exibe modal com barra de progresso indicando as etapas: (1) Coletando dados, 
+(2) Gerando PDFs, (3) Compactando ZIP. 
+Para pacotes com grande volume de dados, o sistema gera de forma assíncrona, exibindo 
+status ‘Gerando...’ e notificando o usuário quando o pacote estiver pronto para download. 
+Em caso de erro: mensagem com causa amigável, opção ‘Ver detalhes’, registro de stack 
+trace no backend, botão ‘Tentar novamente’ e limpeza de arquivos temporários. 
+
+===== PAGE 18 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 18 de 32 
+ 
+Módulo: Arquitetura Fiscal e Obrigações 
+2.1 Entidade: Perfil Fiscal (Tax Profile) 
+O sistema não deve armazenar regras fiscais diretamente na tabela de Produtos. Deve-se 
+utilizar uma entidade intermediária chamada Perfil Fiscal. Um único perfil pode ser vinculado 
+a múltiplos produtos, centralizando as regras tributárias. 
+ 
+Campo Descrição 
+ID Identificador único 
+Nome Descrição amigável (ex: ‘Mercadoria para Revenda - 
+Monofásico’) 
+NCM Padrão Sugestão de NCM para produtos novos vinculados a este 
+perfil 
+CSOSN (SN) Código de Situação da Operação para Simples Nacional 
+Permite Crédito (SN) Flag (Sim/Não) para destacar alíquota de crédito no XML 
+CST_ICMS (RN) Código de Situação Tributária para Regime Normal 
+(bloqueado no MVP) 
+CST_PIS (RN) Código PIS para Regime Normal (bloqueado no MVP) 
+CST_COFINS (RN) Código COFINS para Regime Normal (bloqueado no MVP) 
+CST_IPI (RN) Código IPI quando aplicável (bloqueado no MVP) 
+CFOP_Dentro_Estado CFOP para operações na mesma UF (ex: 5102) 
+CFOP_Fora_Estado CFOP para operações interestaduais (ex: 6102) 
+ID_Alíquota_ICMS_Interna Chave estrangeira para Tabela de Alíquotas 
+ID_Alíquota_ICMS_Interestadual Chave estrangeira para Tabela de Alíquotas 
+MVA (%) Margem de Valor Agregado para cálculo de ICMS-ST 
+(quando aplicável) 
+Pauta Fiscal (R$/un) Valor fixo de pauta para base ST, alternativo ao MVA. 
+Mutuamente exclusivo com MVA. 
+ 
+2.2 Cálculo de Substituição Tributária (ICMS-ST) 
+Método MVA (Margem de Valor Agregado): 
+Base ST = Valor da Operação × (1 + MVA / 100) 
+ICMS-ST = (Base ST × Alíquota Interna do Estado de Destino) − ICMS Próprio 
+ 
+Método Pauta Fiscal: 
+O administrador informa o valor fixo de pauta (R$ por unidade) definido pelo estado. O 
+sistema utiliza esse valor diretamente como base de cálculo ST, sem aplicar MVA. 
+
+===== PAGE 19 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 19 de 32 
+Apenas um método pode estar ativo por Perfil Fiscal. Os dois campos são mutuamente 
+exclusivos na interface e no banco de dados. 
+O sistema não consulta automaticamente tabelas de MVA ou pautas fiscais de fontes 
+externas no MVP. A atualização dos valores é responsabilidade do administrador. 
+ 
+2.3 Matriz de CFOP e Natureza da Operação 
+• O sistema verifica a UF de Origem (Configurações da Empresa). 
+• O sistema verifica a UF de Destino (Cadastro do Cliente). 
+• UF Origem == UF Destino: utilizar CFOP Estadual (iniciado em 5). 
+• UF Origem ≠ UF Destino: utilizar CFOP Interestadual (iniciado em 6). 
+2.4 Gestão de Alíquotas Parametrizáveis 
+Alíquotas não devem ser valores fixos (hardcoded) no produto. A tabela de Alíquotas 
+(tax_rates) contém: ID, Nome, Valor (decimal) e Vigência (data de início). Quando o valor da 
+alíquota for alterado na tabela, todos os Perfis vinculados são atualizados automaticamente. 
+2.5 Inteligência de Importação (XML de Entrada) 
+A entidade de mapeamento (product_supplier_map) armazena: CNPJ_Fornecedor, 
+Cod_Produto_Fornecedor (campo cProd), ID_Produto_Interno, Fator_Conversao e 
+Unidade_Compra. 
+Fluxo de Processamento: 
+4. Ler CNPJ e cProd do XML. 
+5. Buscar na tabela de mapeamento. 
+6. Se encontrado: usar ID_Produto_Interno e multiplicar a quantidade pelo 
+Fator_Conversao. 
+7. Se não encontrado: tentar buscar por EAN do XML. 
+8. Se encontrar EAN: criar vínculo automaticamente. 
+9. Se não encontrar EAN: solicitar intervenção do usuário (‘Vincular a Existente’ ou 
+‘Cadastrar Novo’). 
+ 
+Obrigatoriedade SPED (Registro 0220): Se houver conversão de unidade, o sistema deve 
+registrar essa ocorrência para gerar o registro 0220 no arquivo SPED. 
+2.6 Qualidade de Dados para SPED (Bloco 0) 
+• Produtos (Registro 0200): O COD_ITEM deve ser imutuável. Para alterações 
+drásticas, inativar o produto e criar um novo. 
+• Unidade de Medida: Deve seguir padrão (UN, KG, L). 
+• Participantes (Registro 0150): O sistema preenche automaticamente o Código 
+Município IBGE (7 dígitos) via CEP. Não permitir salvar cadastro incompleto se a 
+finalidade for emissão fiscal. 
+2.7 Manifestação do Destinatário — Especificação Futura 
+
+===== PAGE 20 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 20 de 32 
+Esta seção define o comportamento futuro do módulo de entradas com suporte a 
+Distribuição de DF-e. Esta funcionalidade NÃO deve ser implementada no MVP. A 
+arquitetura do módulo atual deve considerar estes estados e eventos para facilitar a 
+expansão sem refatoração significativa. 
+ 
+Estado Descrição 
+Identificado (Manifesto) A nota foi localizada na SEFAZ, mas o XML completo ainda não foi 
+baixado. Exige o evento de Ciência para liberar o download. 
+Disponível para Lançamento O sistema já possui o XML completo (via download automático ou 
+upload manual). 
+Lançado O usuário concluiu o processo de entrada, vinculando os itens ao 
+estoque e gerando o financeiro. 
+ 
+
+===== PAGE 21 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 21 de 32 
+ 
+Módulo: Rotinas Fiscais e Exportação (SPED) 
+3.1 Gerador de SPED Fiscal (EFD ICMS/IPI) 
+Motor de geração do arquivo de texto (.txt) conforme o Guia Prático da EFD ICMS/IPI. 
+• Período de Apuração: Data Inicial e Final. 
+• Versão do Leiaute: Campo selecionável (ex: 018, 019) para suportar atualizações 
+anuais sem recompilar o código. 
+• Finalidade: 0 (Remessa Original) ou 1 (Remessa Substituta). 
+ 
+Lógica de Lazy Loading dos Registros: 
+O sistema NÃO deve exportar todo o cadastro de clientes e produtos no Bloco 0. O sistema 
+deve varrer as notas do período, coletar IDs únicos de Produtos e Participantes envolvidos 
+e gerar os registros 0150 e 0200 apenas para esses IDs. 
+ 
+Bloco Registro Descrição 
+Bloco 0 0000 Dados da Empresa (Endereço, CNPJ, IE) 
+Bloco 0 0190 Unidades de Medida (apenas as usadas no período) 
+Bloco 0 0200 Produtos (COD_ITEM imutuável) 
+Bloco 0 0220 Fator de Conversão (se houver venda em unidade diferente do 
+estoque) 
+Bloco C C100 Capa da Nota: situação 00-Regular, 02-Cancelada, 05-
+Inutilizada 
+Bloco C C170 Itens da Nota: CST ICMS/PIS/COFINS e CFOP conforme 
+gravado no momento da operação 
+Bloco C C190 Analítico: agrupar itens por CST + CFOP + Alíquota, somando 
+valores 
+Bloco E E110 Apuração ICMS — apenas Regime Normal (bloqueado no MVP) 
+Bloco H — Inventário: Motivo 01 com saldo de estoque na data selecionada 
+ 
+3.2 Pré-Validação (Checklist de Integridade) 
+Antes de gerar o arquivo SPED, o sistema roda um Checklist de Integridade e impede a 
+exportação se houver erros fatais. 
+ 
+Regra de Bloqueio Descrição 
+Participante sem Documento Cliente/Fornecedor com CNPJ/CPF nulo ou inválido nas 
+notas do período 
+Produto sem NCM Item movimentado com NCM nulo ou inválido (menos de 8 
+dígitos) 
+
+===== PAGE 22 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 22 de 32 
+Regra de Bloqueio Descrição 
+Endereço Incompleto Participante sem Código IBGE do município 
+Quebra de Sequência Gaps na numeração das notas não justificados por 
+inutilização 
+ 
+Output de Erro: O sistema exibe relatório identificando o registro afetado. Exemplo: ‘Erro no 
+Registro C100, Nota 543: Cliente sem Código IBGE. Corrija o cadastro para prosseguir.’ 
+
+===== PAGE 23 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 23 de 32 
+ 
+Módulo: Cadastro de Produtos 
+Agrupamento Fiscal 
+Campo NCM 
+Label: ‘NCM’. Tipo: Campo de texto numérico. Máscara: 9999.99.99 (8 dígitos). O sistema 
+não permite salvar o produto se o campo NCM tiver menos de 8 dígitos. 
+Integração com API de Consulta de NCM: O sistema exibe a descrição oficial do NCM 
+conforme o usuário digita, com cache local para performance. 
+Quando o NCM não for encontrado: o sistema não bloqueia o salvamento, exibe alerta 
+‘NCM não encontrado na base. Confira se está correto.’, marca o produto com flag ‘Precisa 
+revisão’ e permite emissão fiscal com registro de log de alerta. 
+Campo CEST 
+Label: ‘CEST’. Tipo: Campo numérico. Máscara: 99.999.99 (7 dígitos). Obrigatório quando 
+CSOSN for 201, 202 ou 203. Se o CEST for obrigatório e não estiver preenchido: o produto 
+é classificado como ‘Uso apenas Interno’ e o sistema bloqueia a emissão de documento 
+fiscal para este produto. 
+Agrupamento Tributação 
+Campo Origem da Mercadoria 
+Label: ‘Origem’. Tipo: Select Box. Obrigatório. Valor Padrão: ‘0 - Nacional’. 
+ 
+Código Descrição 
+0 Nacional 
+1 Estrangeira (Importação direta) 
+2 Estrangeira (Adquirida no mercado interno) 
+3 Nacional com mais de 40% de conteúdo estrangeiro 
+4 Nacional produzida conforme processos produtivos básicos 
+5 Nacional com menos de 40% de conteúdo estrangeiro 
+6 Estrangeira (Importação direta) sem similar nacional 
+7 Estrangeira (Adquirida no mercado interno) sem similar nacional 
+8 Nacional com mais de 70% de conteúdo de importação 
+ 
+Campo CST/CSOSN 
+• Simples Nacional: exibe campo ‘CSOSN’. Opções: 101, 102, 103, 201, 202, 203, 
+300, 400, 500, 900. Tooltip: ‘Para vendas em PDV, geralmente usa-se 102 ou 500’. 
+• Regime Normal: exibe campo ‘CST’. Opções: 00, 10, 20, 30, 40, 41, 50, 51, 60, 70, 
+90. 
+
+===== PAGE 24 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 24 de 32 
+ 
+Ao mudar o regime tributário da empresa: o sistema converte os códigos, preserva o valor 
+anterior em histórico, marca todos os produtos com flag ‘Tributação precisa revisão’ e 
+bloqueia a emissão fiscal dos produtos marcados até que o usuário ajuste cada produto. 
+Indicador de Elegibilidade Fiscal 
+• Escudo verde: Produto ‘Apto para Emissão’ 
+• Triângulo amarelo: Produto ‘Uso apenas Interno’ 
+ 
+O produto é ‘Apto para Emissão’ se todas as seguintes condições forem verdadeiras: NCM 
+preenchido (8 dígitos), Origem preenchida, CST/CSOSN preenchido, Unidade preenchida e 
+CEST preenchido quando CSOSN indicar ST (201, 202, 203). 
+
+===== PAGE 25 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 25 de 32 
+ 
+Módulo: Cadastro de Clientes 
+Validação de CPF e CNPJ 
+O sistema valida o dígito verificador de CPF e CNPJ no frontend (feedback imediato) e no 
+backend (obrigatório). O sistema não permite cadastrar mais de um cliente com o mesmo 
+CPF ou CNPJ. 
+Campo Indicador de Inscrição Estadual 
+ 
+Opção Comportamento do campo IE 
+1. Contribuinte ICMS Campo IE torna-se obrigatório. 
+2. Contribuinte Isento Campo IE fica desabilitado e vazio. 
+3. Não Contribuinte Campo IE fica desabilitado. 
+ 
+Busca por CEP e Código IBGE 
+Ao informar o CEP, o sistema preenche automaticamente Logradouro, Bairro, Cidade e UF. 
+O Código IBGE (7 dígitos) é preenchido automaticamente via CEP ou consulta por 
+cidade+UF. 
+Se o CEP não for localizado: O sistema permite preenchimento manual, exibe aviso ‘CEP 
+não localizado na base’ e marca o cliente como ‘Pendente’ se o Código IBGE não for obtido. 
+O sistema bloqueia emissão de NF-e se o campo cidade_cod estiver vazio. 
+Indicador de Elegibilidade para NF-e 
+O cliente é ‘Apto para NF-e’ se todas as seguintes condições forem verdadeiras: 
+● CPF ou CNPJ válido (dígito verificador correto) 
+● Nome ou Razão Social preenchido 
+● CEP preenchido 
+● Logradouro preenchido 
+● Número preenchido 
+● Bairro preenchido 
+● Cidade preenchida 
+● UF preenchida 
+● Código IBGE (cidade_cod) preenchido — campo técnico preenchido 
+automaticamente pelo sistema 
+● IE preenchida quando Indicador de IE = ‘Contribuinte ICMS’ 
+O campo Complemento é opcional e não impacta a elegibilidade para NF-e. 
+Exceção para Exterior: Se UF = ‘EX’, o ind_ie_dest deve ser ‘9’ e o CPF/CNPJ pode ficar 
+vazio. 
+Validações de Backend 
+
+===== PAGE 26 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 26 de 32 
+Validação de Endereço 
+O backend deve rejeitar uma tentativa de emissão de NF-e se o campo cidade_cod (código 
+IBGE) estiver vazio, mesmo que o nome da cidade esteja preenchido. 
+Validação de Inscrição Estadual 
+● Se ind_ie_dest == ‘1’ (Contribuinte ICMS) e o campo ie estiver vazio: o backend 
+retorna erro “IE obrigatória para contribuinte” e bloqueia a emissão. 
+● Se uf == ‘EX’ (Exterior): o campo ind_ie_dest deve ser ‘9’ obrigatoriamente. O 
+CPF/CNPJ pode ser vazio para clientes estrangeiros. O backend deve impor essa 
+regra independentemente do que estiver configurado no front-end. 
+  
+
+===== PAGE 27 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 27 de 32 
+ 
+Módulo: Frente de Caixa / PDV 
+Produto Não Elegível 
+Se o usuário clicar para emitir nota fiscal e um item não elegível estiver na venda, o sistema 
+exibe: “Este item não possui dados fiscais. Deseja completar agora ou remover da venda?” 
+Ação ‘Completar agora’: abre modal rápido com campos NCM, Origem, CST/CSOSN, 
+Unidade e CEST (condicional). Após salvar, o sistema atualiza o status de elegibilidade e 
+retorna à tela de venda. 
+Identificação do Cliente 
+Atalho de teclado: F1 — ‘Identificar Cliente’. 
+Para NFC-e 
+A identificação do cliente é obrigatória quando: 
+• Total da NFC-e ≥ R$ 10.000,00 (MG e ES) 
+• Venda marcada como delivery 
+ 
+Se o total for ≥ R$ 10.000,00 e o cliente não estiver identificado: o sistema bloqueia o botão 
+‘Finalizar e Emitir NFC-e’ e exibe: “Acima de R$ 10.000,00 a identificação do cliente é 
+obrigatória para emitir NFC-e.” 
+Para NF-e 
+A identificação do cliente é sempre obrigatória. O sistema valida se o cliente selecionado 
+está ‘Apto para NF-e’. 
+Painel de Totais e Tributos 
+O PDV exibe o campo ‘Valor Aproximado dos Tributos (IBPT)’ — requisito legal da Lei 
+12.741/2012. O sistema calcula automaticamente com base no NCM de cada item, 
+utilizando tabela local do IBPT atualizada manualmente pelo administrador. 
+Validação Pré-Emissão (Pre-flight Check) 
+Antes de enviar o JSON para a API fiscal, o backend deve executar as seguintes 
+validações: 
+Validação de Assinatura Digital: 
+• Verificar se o certificado A1 está dentro da validade. 
+• Se o certificado estiver expirado ou inválido: bloquear a emissão e informar o 
+usuário. 
+Validação de Sequência Numérica: 
+• O backend deve controlar o nNF (Número da Nota) e a serie. 
+• O backend nunca deve enviar números duplicados. Números duplicados causam 
+rejeição pela SEFAZ. 
+Botão Emitir Fiscal 
+
+===== PAGE 28 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 28 de 32 
+O botão ‘Emitir Fiscal’ só deve estar habilitado quando todas as seguintes condições forem 
+verdadeiras: 
+• Pagamento confirmado 
+• Todos os itens são ‘Aptos para Fiscal’ 
+• Cliente com cadastro completo (obrigatório para NF-e) 
+• NFC-e com valor ≥ R$ 10.000,00: cliente identificado 
+• Venda delivery: cliente e endereço completos 
+Fluxo de Contingência 
+Gatilho: API fiscal retorna timeout ou servidor indisponível. 
+10. O sistema grava a venda com status ‘Pendente (Contingência)’. 
+11. Para NFC-e: o sistema gera o XML em modo Contingência Offline (tpEmis = 9). 
+12. O sistema permite impressão do DANFE para o cliente. 
+13. O sistema cria Job agendado para tentar o envio a cada 15 minutos. 
+14. A tarefa executa até obter sucesso ou estourar o prazo limite. 
+ 
+UF Prazo Limite Regra 
+MG Fim do próximo dia útil Transmitir imediatamente após normalização, 
+máximo até final do 1º dia útil subsequente 
+ES Fim do próximo dia útil Idem MG 
+Outras Não suportada Sistema não opera nessas UFs 
+ 
+Após o prazo limite: status muda para ‘Atrasada (Risco Fiscal)’. O sistema exibe alerta no 
+dashboard e envia notificação para o administrador. O Job continua tentando o envio. Após 
+sucesso: status atualizado para ‘Autorizada’, protocolo salvo, notificação enviada e 
+reimpressão liberada. 
+Cálculo do Campo prazo_limite_envio 
+O sistema deve calcular e armazenar o campo prazo_limite_envio para cada documento em 
+contingência no momento da emissão offline. O prazo limite é o fim do próximo dia útil após 
+a data/hora de emissão em contingência (23:59:59 do primeiro dia útil subsequente). Antes 
+do prazo: status ‘Pendente (Contingência)’, Job tenta a cada 15 minutos. Após o prazo: 
+status ‘Atrasada (Risco Fiscal)’, alerta e notificação disparados, Job continua tentando (a 
+SEFAZ pode ainda autorizar, mas o risco de penalidade fiscal existe e deve ser sinalizado). 
+
+===== PAGE 29 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 29 de 32 
+ 
+Módulo: Configurações Fiscais 
+Gestão do Certificado Digital 
+Elemento Visual: Área de Arrastar e Soltar (Drag and Drop). Formatos aceitos: .pfx ou .p12 
+(Certificado A1). 
+Validações durante o upload: 
+• O arquivo abre com a senha informada. 
+• O arquivo é certificado A1 e contém chave privada. 
+• A data de validade está dentro do prazo. 
+• O CNPJ extraído do certificado coincide com o CNPJ da empresa logada. 
+ 
+Se o CNPJ do certificado for diferente: o sistema bloqueia a ativação e não permite salvar 
+como ‘ativo’. O sistema pode salvar como ‘rascunho’ apenas para conferência. 
+Feedback após upload: Status (Válido / Expirado / CNPJ divergente), Data de Expiração em 
+destaque e CNPJ do Titular para conferência. 
+Configuração de Ambiente e Emissão 
+Switch ou Radio Button: Homologação (testes, sem valor fiscal) e Produção (vendas reais). 
+Se o ambiente for Homologação: o sistema exibe banner persistente no topo: ‘AMBIENTE 
+DE TESTE ATIVO’. 
+Dados da NFC-e (Venda Balcão) 
+Para a emissão de NFC-e é necessária a configuração dos seguintes campos obrigatórios 
+do CSC (Código de Segurança do Contribuinte): 
+ 
+Campo Tipo Descrição / Exemplo 
+ID do Token (CSC) Campo numérico Identificador do token CSC fornecido pela 
+SEFAZ. Exemplo: 000001 
+Código CSC (Token) Campo 
+alfanumérico 
+Valor do token CSC fornecido pela SEFAZ. 
+Exemplo: ABC123-XYZ789 
+ 
+O CSC é fornecido pela SEFAZ estadual no momento do credenciamento para emissão 
+de NFC-e. O sistema não gera este código — ele deve ser obtido pelo usuário 
+diretamente na SEFAZ e configurado aqui antes de iniciar as emissões. 
+ 
+Numeração e Série 
+Campo Regra 
+Série Número da série. Geralmente 1. 
+
+===== PAGE 30 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 30 de 32 
+Campo Regra 
+Próximo Número — primeira 
+configuração 
+O usuário pode definir livremente. Valor padrão: 1. Útil para 
+migração de outro sistema. 
+Próximo Número — após início de 
+emissões 
+O sistema não permite alterar para valor menor que o 
+número atual registrado. 
+ 
+Armazenamento e Segurança do Certificado 
+• O arquivo do certificado nunca deve ser armazenado em texto plano. 
+• A senha do certificado nunca deve ser armazenada em texto plano. 
+• O backend deve usar criptografia AES-256 para armazenar o certificado e a senha 
+(ou vault seguro equivalente). 
+• O backend deve estar preparado para usar o certificado para assinar o XML da nota 
+fiscal. 
+Alerta de Expiração do Certificado 
+Cron Job diário verifica a data de validade. Se faltarem menos de 30 dias, o sistema dispara 
+notificação por e-mail para todos os usuários com role ‘Admin’ e para o e-mail principal da 
+empresa. 
+Conteúdo do e-mail: Assunto ‘Certificado digital expira em X dias’, contendo nome da 
+empresa, CNPJ, data de expiração, dias restantes e ação recomendada: ‘Substitua o 
+certificado em Configurações Fiscais > Certificado’. 
+Notificação no Dashboard: card de alerta com botão ‘Atualizar certificado’. 
+
+===== PAGE 31 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 31 de 32 
+ 
+Módulo: Relatórios Gerenciais 
+Mapa de Apuração de Impostos 
+Relatório sintético que antecipa o valor dos impostos a pagar, gerado com base nas notas 
+fiscais autorizadas no período. 
+Visão Simples Nacional 
+Segregação de Receitas agrupando o faturamento por: Revenda de Mercadorias 
+(Comércio), Venda de Produtos Industrializados (Indústria) e Prestação de Serviços. Dentro 
+de cada grupo, destacar o valor de vendas com CSOSN de Substituição Tributária (ex: 500) 
+ou Monofásico. Objetivo: facilitar o preenchimento do PGDAS pelo contador. 
+Visão Regime Normal (Estrutura Futura) 
+Esta visão é estrutura futura, bloqueada no MVP. Deve ser considerada na arquitetura 
+do relatório para expansão sem refatoração. 
+ 
+Relatório de Vendas e Curva ABC 
+Metodologia Pareto 80/20. Classificação automática: 
+• Classe A: Produtos que representam até 80% do faturamento acumulado (Alta 
+importância) 
+• Classe B: Produtos que representam os próximos 15% (Média importância) 
+• Classe C: Produtos que representam os últimos 5% (Baixa importância) 
+ 
+Output: Tabela com colunas: Código, Nome, Qtd Vendida, Valor Total, % 
+Representatividade, Classe (A/B/C). 
+Kardex de Estoque 
+Relatório de auditoria com filtro obrigatório de Produto e Período. 
+ 
+Campo Descrição 
+Saldo Inicial Quantidade no início do período filtrado 
+Data/Hora Data e hora de cada movimentação 
+Tipo Entrada (Compra), Saída (Venda), Devolução, Perda/Quebra, 
+Ajuste Manual 
+Documento Número da Nota ou ID da movimentação interna 
+Entrada/Saída Quantidade movimentada 
+Saldo Resultante Saldo após a operação 
+Custo Médio Ponderado Custo do produto no momento da operação (essencial para 
+cálculo de lucro real) 
+
+===== PAGE 32 =====
+SP SISTEMAS  |  Documentação de Reforma  |  Especificação Técnica v3.2 
+Página 32 de 32 
+ 
+Conferência de Meios de Pagamento (Conciliação) 
+Relatório para cruzar vendas no sistema com extrato bancário/maquininha. Considera 
+apenas Vendas Concluídas/Autorizadas. Vendas canceladas ou orçamentos abertos não 
+somam neste total. 
+ 
+Meio de Pagamento Agrupamento 
+Dinheiro Total em espécie 
+Pix Separar Integrado vs. Manual 
+Cartão de Crédito Agrupado por Bandeira (Visa, Master, Elo) 
+Cartão de Débito Total débito 
+ 
