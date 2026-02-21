@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+﻿import React, { useMemo, useState } from 'react';
 import { Download, FileCheck, FileText, Filter, Info, Loader2, CheckCircle2, XCircle, Printer, RefreshCw } from 'lucide-react';
 import { Badge, Button, Input, Modal, Tabs } from '../components/ui';
 
@@ -45,10 +45,11 @@ const confidenceLevel = (c: number) =>
 const formatDateTime = (value: string) => new Date(value).toLocaleString('pt-BR');
 
 export default function FiscalView() {
-  const [activeTab, setActiveTab] = useState('Painel & Pendências');
+  const [activeTab, setActiveTab] = useState('Painel & PendÃªncias');
   const [monthRef, setMonthRef] = useState('2026-01');
   const [scopeMode, setScopeMode] = useState<ScopeMode>('mode_b');
   const [exportType, setExportType] = useState<'complete' | 'custom'>('complete');
+  const [customSalesScope, setCustomSalesScope] = useState<'all' | 'fiscal_only'>('all');
   const [paymentMethods, setPaymentMethods] = useState({ money: true, pix: true, debit: true, credit: true, others: true });
   const [includeInbound, setIncludeInbound] = useState(true);
   const [includeOutbound, setIncludeOutbound] = useState(true);
@@ -185,10 +186,10 @@ export default function FiscalView() {
   };
 
   const cancelReason = (doc: FiscalDocument) => {
-    if (doc.operation !== 'saida') return 'Notas de entrada não podem ser canceladas por este painel.';
+    if (doc.operation !== 'saida') return 'Notas de entrada nÃ£o podem ser canceladas por este painel.';
     if (doc.status !== 'Autorizada') return 'Somente notas autorizadas podem ser canceladas.';
     if (canCancelDocument(doc)) return '';
-    return 'Esta nota não pode mais ser cancelada. O prazo legal para cancelamento foi encerrado. Para devolver a mercadoria, consulte seu contador para emissão de NF-e de devolução.';
+    return 'Esta nota nÃ£o pode mais ser cancelada. O prazo legal para cancelamento foi encerrado. Para devolver a mercadoria, consulte seu contador para emissÃ£o de NF-e de devoluÃ§Ã£o.';
   };
 
   const handleCancelDocument = (doc: FiscalDocument) => {
@@ -208,9 +209,9 @@ export default function FiscalView() {
   return (
     <div className="p-6 space-y-6">
       <h2 className="text-2xl font-bold text-gray-800">Fiscal</h2>
-      <Tabs tabs={['Painel & Pendências', 'Relatórios', 'Documentos Fiscais Emitidos', 'Exportação']} activeTab={activeTab} onChange={setActiveTab} />
+      <Tabs tabs={['Painel & PendÃªncias', 'RelatÃ³rios', 'Documentos Fiscais Emitidos', 'ExportaÃ§Ã£o']} activeTab={activeTab} onChange={setActiveTab} />
 
-      {activeTab === 'Painel & Pendências' && (
+      {activeTab === 'Painel & PendÃªncias' && (
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-amber-50 border rounded-lg p-4"><div className="text-2xl font-bold">12</div><p className="text-sm">Produtos sem NCM</p></div>
@@ -230,7 +231,7 @@ export default function FiscalView() {
         </div>
       )}
 
-      {activeTab === 'Relatórios' && (
+      {activeTab === 'RelatÃ³rios' && (
         <div className="space-y-6">
           <div className="bg-white p-4 rounded-lg border flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
             <div className="flex gap-4 items-end"><Input type="month" label="Mes de Referencia" value={monthRef} onChange={(e) => setMonthRef(e.target.value)} /><Button variant="secondary" icon={<Filter size={16} />}>Aplicar</Button></div>
@@ -263,7 +264,7 @@ export default function FiscalView() {
           <div className="bg-white border rounded-lg p-4 flex flex-col lg:flex-row gap-3 lg:items-end">
             <Input label="Busca por numero ou cliente/fornecedor" value={docSearch} onChange={(e) => setDocSearch(e.target.value)} className="lg:flex-1" />
             <div>
-              <label className="block mb-1 text-xs font-medium text-gray-700">Operação</label>
+              <label className="block mb-1 text-xs font-medium text-gray-700">OperaÃ§Ã£o</label>
               <select className="border rounded-md px-3 py-2 text-sm" value={docOperationFilter} onChange={(e) => setDocOperationFilter(e.target.value as 'all' | FiscalOperation)}>
                 <option value="all">Todas</option>
                 <option value="saida">Saidas</option>
@@ -288,7 +289,7 @@ export default function FiscalView() {
 
           <div className="bg-white border rounded-lg overflow-hidden">
             <table className="min-w-full divide-y divide-gray-200 text-sm">
-              <thead className="bg-gray-50"><tr><th className="px-4 py-3 text-left">Data/Hora</th><th className="px-4 py-3 text-left">Operação</th><th className="px-4 py-3 text-left">Modelo</th><th className="px-4 py-3 text-left">Número/Série</th><th className="px-4 py-3 text-left">Cliente / Fornecedor</th><th className="px-4 py-3 text-left">Valor</th><th className="px-4 py-3 text-left">Status</th><th className="px-4 py-3 text-left">SEFAZ</th><th className="px-4 py-3 text-right">Ações</th></tr></thead>
+              <thead className="bg-gray-50"><tr><th className="px-4 py-3 text-left">Data/Hora</th><th className="px-4 py-3 text-left">OperaÃ§Ã£o</th><th className="px-4 py-3 text-left">Modelo</th><th className="px-4 py-3 text-left">NÃºmero/SÃ©rie</th><th className="px-4 py-3 text-left">Cliente / Fornecedor</th><th className="px-4 py-3 text-left">Valor</th><th className="px-4 py-3 text-left">Status</th><th className="px-4 py-3 text-left">SEFAZ</th><th className="px-4 py-3 text-right">AÃ§Ãµes</th></tr></thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredDocuments.map((doc) => (
                   <tr key={doc.id}>
@@ -310,21 +311,117 @@ export default function FiscalView() {
         </div>
       )}
 
-      {activeTab === 'Exportação' && (
+      {activeTab === 'ExportaÃ§Ã£o' && (
         <div className="max-w-4xl space-y-6">
           <div className="bg-white p-6 rounded-lg border space-y-4">
-            <h3 className="text-lg font-medium flex items-center gap-2"><FileCheck size={20} className="text-indigo-600" /> Pacote Contabil</h3>
+            <h3 className="text-lg font-medium flex items-center gap-2">
+              <FileCheck size={20} className="text-indigo-600" />
+              Pacote Contabil
+            </h3>
+
             <Input type="month" label="Mes de Referencia" value={monthRef} onChange={(e) => setMonthRef(e.target.value)} />
-            <div className="flex gap-6"><label className="flex items-center gap-2"><input type="radio" checked={exportType === 'complete'} onChange={() => { setExportType('complete'); setScopeMode('mode_b'); }} />Pacote Completo</label><label className="flex items-center gap-2"><input type="radio" checked={exportType === 'custom'} onChange={() => setExportType('custom')} />Relatorio Customizado</label></div>
-            {exportType === 'complete' && <div className="rounded border border-blue-100 bg-blue-50 p-3 text-sm">Pacote Completo inclui vendas fiscais e internas por padrao.</div>}
-            {exportType === 'custom' && <div className="rounded border bg-gray-50 p-4 text-sm">Relatorio customizado mantido conforme configuracao atual.</div>}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm"><label className="flex items-center gap-2 border rounded p-3"><input type="checkbox" checked={effectiveIncludeInbound} disabled={exportType === 'complete'} onChange={(e) => setIncludeInbound(e.target.checked)} />XML de Entrada (Compras)</label><label className="flex items-center gap-2 border rounded p-3"><input type="checkbox" checked={effectiveIncludeOutbound} disabled={exportType === 'complete'} onChange={(e) => setIncludeOutbound(e.target.checked)} />XML de Saida (NFC-e/NF-e)</label></div>
-            <details className="rounded border bg-gray-50 p-3 text-sm"><summary className="cursor-pointer font-medium">Ver estrutura prevista do pacote</summary><div className="text-xs mt-2">Arquivo final: {packageName}</div><ul className="mt-2">{filesInPackage.map((f) => <li key={f}>- {f}</li>)}</ul></details>
-            <div className="flex gap-3"><Button size="lg" icon={<Download size={18} />} onClick={generatePackage}>Gerar Pacote (.zip)</Button>{genState === 'ready' && <Button size="lg" variant="secondary" onClick={downloadZip}>Baixar pacote pronto</Button>}</div>
+
+            <div className="rounded border border-amber-200 bg-amber-50 p-3 text-sm text-amber-700">
+              Essa configuracao impacta o conteudo do PDF Master e dos PDFs detalhados exibidos na previa.
+            </div>
+
+            <div className="flex gap-6">
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  checked={exportType === 'complete'}
+                  onChange={() => {
+                    setExportType('complete');
+                    setScopeMode('mode_b');
+                    setCustomSalesScope('all');
+                  }}
+                />
+                Pacote Completo
+              </label>
+              <label className="flex items-center gap-2">
+                <input type="radio" checked={exportType === 'custom'} onChange={() => setExportType('custom')} />
+                Relatorio Customizado
+              </label>
+            </div>
+
+            {exportType === 'custom' && (
+              <div className="rounded border bg-gray-50 p-4 space-y-4">
+                <div>
+                  <p className="text-sm font-medium mb-2">Escopo das Vendas</p>
+                  <div className="flex flex-wrap gap-6">
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        className="accent-blue-600"
+                        checked={customSalesScope === 'all'}
+                        onChange={() => {
+                          setCustomSalesScope('all');
+                          setScopeMode('mode_b');
+                        }}
+                      />
+                      Todas as vendas (Fiscal + Interno)
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        className="accent-blue-600"
+                        checked={customSalesScope === 'fiscal_only'}
+                        onChange={() => {
+                          setCustomSalesScope('fiscal_only');
+                          setScopeMode('mode_a');
+                        }}
+                      />
+                      Somente com Documento Fiscal
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-sm font-medium mb-2">Formas de Pagamento</p>
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-3 text-sm">
+                    <label className="flex items-center gap-2">
+                      <input type="checkbox" className="accent-blue-600" checked={paymentMethods.money} onChange={(e) => setPaymentMethods((s) => ({ ...s, money: e.target.checked }))} />
+                      Dinheiro
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input type="checkbox" className="accent-blue-600" checked={paymentMethods.pix} onChange={(e) => setPaymentMethods((s) => ({ ...s, pix: e.target.checked }))} />
+                      PIX
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input type="checkbox" className="accent-blue-600" checked={paymentMethods.debit} onChange={(e) => setPaymentMethods((s) => ({ ...s, debit: e.target.checked }))} />
+                      Debito
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input type="checkbox" className="accent-blue-600" checked={paymentMethods.credit} onChange={(e) => setPaymentMethods((s) => ({ ...s, credit: e.target.checked }))} />
+                      Credito
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input type="checkbox" className="accent-blue-600" checked={paymentMethods.others} onChange={(e) => setPaymentMethods((s) => ({ ...s, others: e.target.checked }))} />
+                      Outros
+                    </label>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <label className="flex items-center gap-2 border rounded p-3">
+                <input type="checkbox" className="accent-blue-600" checked={effectiveIncludeInbound} disabled={exportType === 'complete'} onChange={(e) => setIncludeInbound(e.target.checked)} />
+                XML de Entrada (Compras)
+              </label>
+              <label className="flex items-center gap-2 border rounded p-3">
+                <input type="checkbox" className="accent-blue-600" checked={effectiveIncludeOutbound} disabled={exportType === 'complete'} onChange={(e) => setIncludeOutbound(e.target.checked)} />
+                XML de Saida (NFC-e/NF-e)
+              </label>
+            </div>
+
+            <div className="flex gap-3">
+              <Button size="lg" icon={<Download size={18} />} onClick={generatePackage}>Gerar Pacote (.zip)</Button>
+              {genState === 'ready' && <Button size="lg" variant="secondary" onClick={downloadZip}>Baixar pacote pronto</Button>}
+            </div>
           </div>
         </div>
       )}
-
       <Modal isOpen={isPdfModalOpen} onClose={() => setIsPdfModalOpen(false)} title="Pre-visualizacao do PDF Master" size="xl">
         <div className="space-y-4">
           <div className="border rounded-lg bg-white p-4"><div className="text-sm text-gray-500">Empresa</div><div className="font-semibold text-gray-900">{companyName}</div><div className="text-sm text-gray-600">CNPJ: {companyCnpj} | IE: {companyIe}</div></div>
